@@ -1,0 +1,4 @@
+- name: microshift
+  file: kcli_plan.yml
+  description: Microshift
+  numvms: 1
