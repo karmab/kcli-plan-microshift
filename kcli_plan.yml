@@ -2,6 +2,7 @@ microshift_profile:
  type: profile
  domain: {{ domain }}
  image: {{ image }}
+ nets: [{{ network }}] 
  memory: {{ memory }}
  numcpus: {{ numcpus }}
  files:

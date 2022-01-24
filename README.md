@@ -9,6 +9,7 @@ A plan o deploy microshift on many vms
 |domain    |karmalabs.com                                     |
 |image     |centos8stream                                     |
 |memory    |4096                                              |
+|network   |default                                           |
 |nightly   |False                                             |
 |nodes     |1                                                 |
 |numcpus   |4                                                 |
