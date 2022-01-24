@@ -11,6 +11,6 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://downlo
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.repo
 {% endif %}
 {% endif %}
-dnf -y install cri-o conntrack
+dnf -y install cri-o conntrack cri-tools
 sed -i 's@conmon = .*@conmon = "/bin/conmon"@' /etc/crio/crio.conf
 systemctl enable --now crio
