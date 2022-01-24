@@ -1,0 +1,9 @@
+nodes: 1
+cluster: microshift
+domain: karmalabs.com
+image: centos8stream
+memory: 4096
+numcpus: 4
+KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+podman: false
+nightly: false

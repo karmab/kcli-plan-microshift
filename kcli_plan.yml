@@ -1,12 +1,3 @@
-parameters:
- memory: 4096
- numcpus: 4
- image: centos8stream
- domain: karmalabs.com
- nodes: 1
- nightly: false
- KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
-
 microshift_profile:
  type: profile
  domain: {{ domain }}
@@ -14,13 +5,13 @@ microshift_profile:
  memory: {{ memory }}
  numcpus: {{ numcpus }}
  files:
- - pre.sh
- - microshift.sh
- cmds:
- - bash /root/pre.sh
- - bash /root/microshift.sh
+ - 01_clients.sh
+ - 02_crio.sh
+ - 03_microshift.sh
+ scripts:
+ - deploy.sh
 
 {% for number in range(0, nodes) %}
-microshift-{{ number }}:
+{{ cluster }}-{{ number }}:
   profile: microshift_profile
 {% endfor %}

@@ -1,10 +1,16 @@
-curl -o oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
-tar -xzvf oc.tar.gz
-install -t /usr/local/bin {kubectl,oc}
+{% if 'rhel' in image %}
+subscription-manager repos --enable rhocp-4.8-for-rhel-8-x86_64-rpms
+{% else %}
 CRIO_VERSION=1.$(kubectl version -o yaml | grep minor | cut -d: -f2 | sed 's/"//g' | xargs)
-OS="CentOS_8"
+{% if 'fedora' in image %}
+dnf module enable -y cri-o:$CRIO_VERSION
+{% else %}
+#OS="CentOS_8"
+OS=$(cat /etc/redhat-release | awk '{print $1"_"$4"_"$2'})
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.repo
-yum -y install cri-o conntrack
+{% endif %}
+{% endif %}
+dnf -y install cri-o conntrack
 sed -i 's@conmon = .*@conmon = "/bin/conmon"@' /etc/crio/crio.conf
 systemctl enable --now crio
