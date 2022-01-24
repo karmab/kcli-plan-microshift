@@ -8,6 +8,9 @@ microshift_profile:
  - 01_clients.sh
  - 02_crio.sh
  - 03_microshift.sh
+{% if 'manifests'|find_manifests %}
+ - manifests
+{% endif %}
  scripts:
  - deploy.sh
 
