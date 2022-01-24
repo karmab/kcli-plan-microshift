@@ -5,5 +5,5 @@ image: centos8stream
 memory: 4096
 numcpus: 4
 KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
-podman: false
+podman: true
 nightly: false
