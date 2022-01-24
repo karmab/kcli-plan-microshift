@@ -6,5 +6,5 @@ network: default
 memory: 4096
 numcpus: 4
 KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
-podman: true
+podman: false
 nightly: false
