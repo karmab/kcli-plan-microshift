@@ -2,6 +2,7 @@ microshift_profile:
  type: profile
  domain: {{ domain }}
  image: {{ image }}
+ noname: {{ noname }}
  nets: [{{ network }}] 
  memory: {{ memory }}
  numcpus: {{ numcpus }}
@@ -11,6 +12,10 @@ microshift_profile:
  - 03_microshift.sh
 {% if 'manifests'|find_manifests %}
  - manifests
+{% endif %}
+{% if pull_secret|exists %}
+ - path: /root/auth.json
+   origin: {{ pull_secret }}
 {% endif %}
  scripts:
  - deploy.sh

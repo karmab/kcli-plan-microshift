@@ -8,3 +8,5 @@ numcpus: 4
 KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
 podman: false
 nightly: false
+pull_secret: openshift_pull.json
+noname: false

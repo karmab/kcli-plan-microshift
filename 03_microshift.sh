@@ -3,7 +3,6 @@ if [ -d /root/manifests ] ; then
   cp /root/manifests/*y*ml /var/lib/microshift/manifests
 fi
 {% if podman %}
-dnf install -y podman
 curl -o /etc/systemd/system/microshift.service https://raw.githubusercontent.com/redhat-et/microshift/main/packaging/systemd/microshift-containerized.service
 systemctl enable microshift --now
 KUBEADMINDIR=/var/lib/microshift/resources/kubeadmin
