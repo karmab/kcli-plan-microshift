@@ -40,8 +40,7 @@ export KUBECONFIG=kubeconfig
 
 test -f /root/auth.json && podman login registry.redhat.io --authfile /root/auth.json
 
-oc create ns open-cluster-management-agent
-oc project open-cluster-management-agent
+oc new-project open-cluster-management-agent
 oc create secret generic rhacm --from-file=.dockerconfigjson=auth.json --type=kubernetes.io/dockerconfigjson
 oc create sa klusterlet
 oc patch serviceaccount klusterlet -p '{"imagePullSecrets": [{"name": "rhacm"}]}' -n open-cluster-management-agent
@@ -50,9 +49,8 @@ oc patch serviceaccount klusterlet-registration-sa -p '{"imagePullSecrets": [{"n
 oc create sa klusterlet-work-sa
 oc patch serviceaccount klusterlet-work-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
 
-oc create ns open-cluster-management-agent-addon
+oc new-project open-cluster-management-agent-addon
 oc create secret generic rhacm --from-file=.dockerconfigjson=auth.json --type=kubernetes.io/dockerconfigjson
-oc project open-cluster-management-agent-addon
 oc create sa klusterlet-addon-operator
 oc patch serviceaccount klusterlet-addon-operator -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
 oc create sa klusterlet-addon-appmgr

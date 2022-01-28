@@ -20,7 +20,7 @@ microshift_profile:
 {% if kubeconfig_extra != None %}
  - path: /root/kubeconfig.extra
    origin: {{ kubeconfig_extra }}
- - acm.sh
+ - 04_acm.sh
 {% endif %}
  scripts:
  - deploy.sh
