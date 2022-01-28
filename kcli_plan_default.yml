@@ -10,3 +10,4 @@ podman: false
 nightly: false
 pull_secret: openshift_pull.json
 noname: false
+nip: false
