@@ -43,29 +43,24 @@ test -f /root/auth.json && podman login registry.redhat.io --authfile /root/auth
 oc new-project open-cluster-management-agent
 oc create secret generic rhacm --from-file=.dockerconfigjson=auth.json --type=kubernetes.io/dockerconfigjson
 oc create sa klusterlet
-oc patch serviceaccount klusterlet -p '{"imagePullSecrets": [{"name": "rhacm"}]}' -n open-cluster-management-agent
+oc patch sa klusterlet -p '{"imagePullSecrets": [{"name": "rhacm"}]}' -n open-cluster-management-agent
 oc create sa klusterlet-registration-sa 
-oc patch serviceaccount klusterlet-registration-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
+oc patch sa klusterlet-registration-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
 oc create sa klusterlet-work-sa
-oc patch serviceaccount klusterlet-work-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
+oc patch sa klusterlet-work-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
 
 oc new-project open-cluster-management-agent-addon
 oc create secret generic rhacm --from-file=.dockerconfigjson=auth.json --type=kubernetes.io/dockerconfigjson
 oc create sa klusterlet-addon-operator
-oc patch serviceaccount klusterlet-addon-operator -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-appmgr
-oc patch serviceaccount klusterlet-addon-appmgr -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-certpolicyctrl
-oc patch serviceaccount klusterlet-addon-certpolicyctrl -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-iampolicyctrl-sa
-oc patch serviceaccount klusterlet-addon-iampolicyctrl-sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-policyctrl
-oc patch serviceaccount klusterlet-addon-policyctrl -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-search
-oc patch serviceaccount klusterlet-addon-search -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
-oc create sa klusterlet-addon-workmgr
-oc patch serviceaccount klusterlet-addon-workmgr -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
+oc patch sa klusterlet-addon-operator -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
 
 oc project open-cluster-management-agent
 echo $CRDS | base64 -d | oc apply -f -
 echo $IMPORT | base64 -d | oc apply -f -
+
+sleep 300
+oc project open-cluster-management-agent-addon
+for sa in klusterlet-addon-appmgr klusterlet-addon-certpolicyctrl klusterlet-addon-iampolicyctrl-sa klusterlet-addon-policyctrl klusterlet-addon-search klusterlet-addon-workmgr ; do
+  oc patch sa $sa -p '{"imagePullSecrets": [{"name": "rhacm"}]}'
+done
+oc delete pod --all -n open-cluster-management-agent-addon
