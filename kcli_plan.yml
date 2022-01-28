@@ -17,6 +17,10 @@ microshift_profile:
  - path: /root/auth.json
    origin: {{ pull_secret }}
 {% endif %}
+{% if kubeconfig_extra != None %}
+ - path: /root/kubeconfig.extra
+   origin: {{ kubeconfig_extra }}
+{% endif %}
  scripts:
  - deploy.sh
 
