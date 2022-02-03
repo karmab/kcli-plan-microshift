@@ -6,3 +6,6 @@ hostnamectl set-hostname $IP.nip.io
 /root/01_clients.sh
 /root/02_crio.sh
 /root/03_microshift.sh
+{% if register_acm %}
+/root/04_acm.sh
+{% endif %}

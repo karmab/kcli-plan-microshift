@@ -37,6 +37,11 @@ sleep 10
 IMPORT=`oc get -n ${CLUSTER_NAME} secret ${CLUSTER_NAME}-import -o jsonpath='{.data.import\.yaml}'`
 CRDS=`oc get -n ${CLUSTER_NAME} secret ${CLUSTER_NAME}-import -o jsonpath='{.data.crds\.yaml}'`
 export KUBECONFIG=kubeconfig
+while true ; do
+ /usr/bin/kubectl get pod -A | grep router | grep -q Running && break
+ echo waiting 10s for microshift to be ready
+ sleep 10
+done
 
 test -f /root/auth.json && podman login registry.redhat.io --authfile /root/auth.json
 

@@ -11,4 +11,5 @@ nightly: false
 pull_secret: openshift_pull.json
 noname: false
 nip: false
+register_acm: false
 kubeconfig_extra:
