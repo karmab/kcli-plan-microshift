@@ -23,7 +23,9 @@ microshift_profile:
  - 04_acm.sh
 {% endif %}
  scripts:
+{% if deploy %}
  - deploy.sh
+{% endif %}
 
 {% for number in range(0, nodes) %}
 {{ cluster }}-{{ number }}:

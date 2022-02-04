@@ -13,3 +13,4 @@ noname: false
 nip: false
 register_acm: false
 kubeconfig_extra:
+deploy: true

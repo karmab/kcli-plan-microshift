@@ -1,5 +1,7 @@
+KUBECONFIG_MICROSHIFT=kubeconfig.extra
+KUBECONFIG_ACM=kubeconfig.extra
 export CLUSTER_NAME={{ name }}
-export KUBECONFIG=kubeconfig.extra
+export KUBECONFIG=${KUBECONFIG_ACM}
 oc new-project ${CLUSTER_NAME}
 cat <<EOF | oc apply -f -
 apiVersion: agent.open-cluster-management.io/v1
@@ -36,7 +38,7 @@ EOF
 sleep 10
 IMPORT=`oc get -n ${CLUSTER_NAME} secret ${CLUSTER_NAME}-import -o jsonpath='{.data.import\.yaml}'`
 CRDS=`oc get -n ${CLUSTER_NAME} secret ${CLUSTER_NAME}-import -o jsonpath='{.data.crds\.yaml}'`
-export KUBECONFIG=kubeconfig
+export KUBECONFIG=${KUBECONFIG_MICROSHIFT}
 while true ; do
  /usr/bin/kubectl get pod -A | grep router | grep -q Running && break
  echo waiting 10s for microshift to be ready
