@@ -1,5 +1,6 @@
 KUBECONFIG_MICROSHIFT=kubeconfig.extra
 KUBECONFIG_ACM=kubeconfig.extra
+cd /root
 export CLUSTER_NAME={{ name }}
 export KUBECONFIG=${KUBECONFIG_ACM}
 oc new-project ${CLUSTER_NAME}

@@ -7,9 +7,7 @@ microshift_profile:
  memory: {{ memory }}
  numcpus: {{ numcpus }}
  files:
- - 01_clients.sh
- - 02_crio.sh
- - 03_microshift.sh
+ - scripts
 {% if 'manifests'|find_manifests %}
  - manifests
 {% endif %}
@@ -20,11 +18,10 @@ microshift_profile:
 {% if kubeconfig_extra != None %}
  - path: /root/kubeconfig.extra
    origin: {{ kubeconfig_extra }}
- - 04_acm.sh
 {% endif %}
- scripts:
 {% if deploy %}
- - deploy.sh
+ scripts:
+ - scripts/deploy.sh
 {% endif %}
 
 {% for number in range(0, nodes) %}
