@@ -1,7 +1,5 @@
-{% if nip %}
-IP=`ip a l  eth0 | grep 'inet ' | cut -d' ' -f6 | awk -F'/' '{ print $1}'`
-echo $IP.nip.io > /etc/hostname
-hostnamectl set-hostname $IP.nip.io
+{% if sslip %}
+/root/scripts/00_sslip.sh
 {% endif %}
 /root/scripts/01_clients.sh
 /root/scripts/02_crio.sh

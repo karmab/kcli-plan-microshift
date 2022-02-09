@@ -1,6 +1,6 @@
 cluster: micro
 nodes: 5
 network: baremetal
-nip: true
+sslip: true
 kubeconfig_extra: kubeconfig.cnf10
 pull_secret: openshift_pull.json

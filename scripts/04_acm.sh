@@ -1,4 +1,4 @@
-KUBECONFIG_MICROSHIFT=kubeconfig.extra
+KUBECONFIG_MICROSHIFT=kubeconfig
 KUBECONFIG_ACM=kubeconfig.extra
 cd /root
 export CLUSTER_NAME={{ name }}
